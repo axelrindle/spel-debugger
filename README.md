@@ -1,3 +1,5 @@
+[![CI](https://github.com/axelrindle/spel-debugger/actions/workflows/ci.yml/badge.svg)](https://github.com/axelrindle/spel-debugger/actions/workflows/ci.yml)
+
 # SpEL Debugger
 
 This application is a debugger for the
