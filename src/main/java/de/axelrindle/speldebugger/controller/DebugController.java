@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.StandardEnvironment;
-import org.springframework.expression.spel.SpelEvaluationException;
-import org.springframework.expression.spel.SpelParseException;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -47,7 +45,7 @@ public class DebugController {
             }
             """))
     )
-    public ResponseEntity<SpelResponse> processSpelRequest(@RequestBody SpelRequest form) throws ReflectiveOperationException {
+    public ResponseEntity<SpelResponse> processSpelRequest(@RequestBody SpelRequest form) {
         try {
             StandardEnvironment environment = makeEnvironment(form.context());
 
@@ -66,9 +64,13 @@ public class DebugController {
             }
 
             return ResponseEntity.ok(new SpelResponse(result.toString(), result.getClass().getName(), null));
-        } catch (IllegalArgumentException | SpelEvaluationException | SpelParseException e) {
-            log.debug("SpEL parsing error: {}", e.getMessage());
-            return ResponseEntity.badRequest().body(new SpelResponse(null, null, e.getMessage()));
+        } catch (Exception e) {
+            var message = e.getClass().getName() + ": " + e.getMessage();
+            log.debug("SpEL parsing error: {}", message);
+            if (log.isDebugEnabled()) {
+                e.printStackTrace();
+            }
+            return ResponseEntity.badRequest().body(new SpelResponse(null, null, message));
         }
     }
 
