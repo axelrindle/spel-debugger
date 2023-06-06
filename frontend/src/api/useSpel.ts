@@ -3,10 +3,17 @@ import { SpelRequest, SpelResponse } from '../types';
 
 export type UseSpelResult = UseMutationResult<SpelResponse, SpelResponse, FormData>
 
+function getUrl(): string|URL {
+    if (import.meta.env.PROD) {
+        return '/spel';
+    }
+
+    return new URL('/spel', import.meta.env.VITE_API_URL)
+}
+
 export default function useSpel() {
     return useMutation<SpelResponse, SpelResponse, FormData>(async (data) => {
-        const url = new URL('/spel', import.meta.env.VITE_API_URL)
-        const response = await fetch(url, {
+        const response = await fetch(getUrl(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
