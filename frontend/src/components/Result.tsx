@@ -41,6 +41,9 @@ export default function Result({ mutation }: Props) {
             <p>
                 Type: <u>{mutation.data?.type}</u>
             </p>
+            <p>
+                Duration: <u>{mutation.variables?.duration} ms</u>
+            </p>
         </FieldShell>
     )
 }
