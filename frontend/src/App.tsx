@@ -4,7 +4,7 @@ import { FieldArray, Form, Formik } from 'formik'
 import { nanoid } from 'nanoid'
 import { useState } from 'react'
 import useSpel from './api/useSpel'
-import { FieldShell, MyField, MyFieldOnly } from './components/Form'
+import { MyField, MyFieldOnly } from './components/Form'
 import { Footer, Header } from './components/Page'
 import Result from './components/Result'
 import Spel from './components/Spel'
@@ -154,19 +154,7 @@ export default function App() {
 
         <hr />
 
-        <FieldShell
-          name="result"
-          label="Result"
-        >
-          <pre id="result" className="mt-1">
-            <code>
-              <Result mutation={mutation} />
-            </code>
-          </pre>
-          <p>
-            Type: <u>{mutation.data?.type}</u>
-          </p>
-        </FieldShell>
+        <Result mutation={mutation} />
       </div>
     </div>
 
