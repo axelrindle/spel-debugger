@@ -12,6 +12,7 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.expression.spel.SpelEvaluationException;
 import org.springframework.expression.spel.SpelParseException;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.support.StandardServletEnvironment;
@@ -46,7 +47,7 @@ public class DebugController {
             }
             """))
     )
-    public SpelResponse processSpelRequest(@RequestBody SpelRequest form) throws ReflectiveOperationException {
+    public ResponseEntity<SpelResponse> processSpelRequest(@RequestBody SpelRequest form) throws ReflectiveOperationException {
         try {
             StandardEnvironment environment = makeEnvironment(form.context());
 
@@ -60,14 +61,14 @@ public class DebugController {
             log.debug("Processing SpEL expression: {}", spel);
 
             var result = parser.parseExpression(spel).getValue();
-            var string = result == null ? null : result.toString();
-            return new SpelResponse(string, null);
-        } catch (IllegalArgumentException | SpelEvaluationException | SpelParseException e) {
-            log.error("SpEL parsing error: {}", e.getMessage());
-            if (log.isDebugEnabled()) {
-                e.printStackTrace();
+            if (result == null) {
+                return ResponseEntity.ok(new SpelResponse("null", "null", null));
             }
-            return new SpelResponse(null, e.getMessage());
+
+            return ResponseEntity.ok(new SpelResponse(result.toString(), result.getClass().getName(), null));
+        } catch (IllegalArgumentException | SpelEvaluationException | SpelParseException e) {
+            log.debug("SpEL parsing error: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(new SpelResponse(null, null, e.getMessage()));
         }
     }
 

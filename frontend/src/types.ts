@@ -11,5 +11,6 @@ export interface SpelRequest {
 
 export interface SpelResponse {
     result: any | null
+    type: string | null
     error: string | null
 }

@@ -163,6 +163,9 @@ export default function App() {
               <Result mutation={mutation} />
             </code>
           </pre>
+          <p>
+            Type: <u>{mutation.data?.type}</u>
+          </p>
         </FieldShell>
       </div>
     </div>
