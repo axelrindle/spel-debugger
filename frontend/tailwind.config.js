@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -5,7 +7,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        blue: {
+          '600': colors.green[600]
+        }
+      }
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

@@ -10,7 +10,7 @@ export default function Result({ mutation }: Props) {
     }
 
     if (mutation.isError) {
-        return mutation.error.error
+        return 'Error: ' + mutation.error.message
     }
 
     return mutation.data?.result ?? 'No data.'

@@ -1,6 +1,12 @@
+export interface ContextVariable {
+    id: string
+    key: string
+    value: unknown
+}
+
 export interface SpelRequest {
     spel: string
-    context: Record<string, any>
+    context: ContextVariable[]
 }
 
 export interface SpelResponse {

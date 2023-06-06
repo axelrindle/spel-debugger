@@ -1,7 +1,5 @@
-import { UseMutationResult, useMutation } from 'react-query';
-import { SpelRequest, SpelResponse } from '../types';
-
-export type UseSpelResult = UseMutationResult<SpelResponse, SpelResponse, FormData>
+import { useMutation } from '@tanstack/react-query';
+import { SpelResponse } from '../types';
 
 function getUrl(): string|URL {
     if (import.meta.env.PROD) {
@@ -12,20 +10,23 @@ function getUrl(): string|URL {
 }
 
 export default function useSpel() {
-    return useMutation<SpelResponse, SpelResponse, FormData>(async (data) => {
+    return useMutation<SpelResponse, Error, unknown>(async (data) => {
         const response = await fetch(getUrl(), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                spel: data.get('spel'),
-                context: {
-                    'property.name': '2023-05-06'
-                },
-            } as SpelRequest),
+            body: JSON.stringify(data),
         })
 
-        return await response.json() as SpelResponse
+        const result = await response.json() as SpelResponse
+
+        if (!response.ok) {
+            throw new Error(result.error ?? 'Unknown error!')
+        }
+
+        return result
     })
 }
+
+export type UseSpelResult = ReturnType<typeof useSpel>
