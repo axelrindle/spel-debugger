@@ -63,7 +63,7 @@ export default function App() {
                         <button
                           type="button"
                           tabIndex={-1}
-                          className="text-green-600 ml-2"
+                          className="text-lime-600 ml-2"
                           title="Add new variable"
                           onClick={() => push({ id: nanoid(), key: '', value: '' } as ContextVariable) }
                         >
@@ -139,7 +139,7 @@ export default function App() {
                 <button
                   className="
                     relative inline-block
-                    focus:outline-none focus:ring focus:ring-green-500
+                    focus:outline-none focus:ring focus:ring-lime-500
                   "
                   type="submit"
                 >
@@ -147,8 +147,8 @@ export default function App() {
                     className="
                       relative inline-block px-8 py-4
                       text-sm font-bold uppercase tracking-widest
-                      bg-green-300 border-2 border-current
-                      transition-colors hover:bg-green-400
+                      bg-lime-400 border-2 border-current
+                      transition-colors hover:bg-lime-300
                     "
                   >
                     Submit

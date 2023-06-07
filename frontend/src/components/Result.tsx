@@ -27,7 +27,7 @@ export default function Result({ mutation }: Props) {
                 <div>
                     <span className="mr-2">Result</span>
                     {mutation.isError && <FontAwesomeIcon icon={faClose} className="text-red-600" />}
-                    {mutation.isSuccess && <FontAwesomeIcon icon={faCheck} className="text-green-600" />}
+                    {mutation.isSuccess && <FontAwesomeIcon icon={faCheck} className="text-lime-600" />}
                     {mutation.isLoading && <FontAwesomeIcon icon={faSpinner} className="text-sky-600" spin />}
                     {mutation.isIdle && <FontAwesomeIcon icon={faPause} className="text-sky-600" />}
                 </div>

@@ -18,7 +18,7 @@ function Shell(props: ShellProps) {
 export function Header() {
     return (
         <Shell>
-            <p className="text-4xl text-green-600 font-bold">
+            <p className="text-4xl text-lime-600 font-bold">
                 Debugger for Spring Expression Language (<Spel />)
             </p>
         </Shell>
