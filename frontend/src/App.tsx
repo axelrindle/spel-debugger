@@ -12,7 +12,13 @@ import { ContextVariable, SpelRequest } from './types'
 
 const formInitialValues: SpelRequest = {
   spel: "#{T(java.time.LocalDate).parse('${property.name}')}",
-  context: []
+  context: [
+    {
+      id: nanoid(),
+      key: 'property.name',
+      value: '2023-05-06'
+    }
+  ]
 }
 
 export default function App() {
