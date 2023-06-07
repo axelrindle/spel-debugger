@@ -35,11 +35,7 @@ export default function App() {
         <Formik
           initialValues={formInitialValues}
           onSubmit={async (data) => {
-            const dataTransformed = {
-              ...data,
-              context: data.context.reduce((last, current) => ({ ...last, [current.key]: current.value}), {})
-            }
-            await mutation.mutateAsync(dataTransformed)
+            await mutation.mutateAsync(data)
           }}
         >
           {({ values }) => (

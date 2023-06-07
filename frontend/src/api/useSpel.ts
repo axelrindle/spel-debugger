@@ -17,12 +17,16 @@ function getUrl(): string|URL {
 export default function useSpel() {
     return useMutation<SpelResponse, Error, SpelRequest, Context>({
         mutationFn: async (data) => {
+            const dataTransformed = {
+                ...data,
+                context: data.context.reduce((last, current) => ({ ...last, [current.key]: current.value}), {})
+            }
             const response = await fetch(getUrl(), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(dataTransformed),
             })
     
             const result = await response.json() as SpelResponse
