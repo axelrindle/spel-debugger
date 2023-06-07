@@ -1,5 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
-import { SpelResponse } from '../types';
+import { SpelRequest, SpelResponse } from '../types';
+
+interface Context {
+    start: Date
+    duration?: number
+}
 
 function getUrl(): string|URL {
     if (import.meta.env.PROD) {
@@ -9,12 +14,8 @@ function getUrl(): string|URL {
     return new URL('/spel', import.meta.env.VITE_API_URL)
 }
 
-interface Variables {
-    duration?: number
-}
-
 export default function useSpel() {
-    return useMutation<SpelResponse, Error, Variables>({
+    return useMutation<SpelResponse, Error, SpelRequest, Context>({
         mutationFn: async (data) => {
             const response = await fetch(getUrl(), {
                 method: 'POST',
@@ -32,11 +33,12 @@ export default function useSpel() {
     
             return result
         },
-        onMutate(variables) {
-            variables.duration = new Date().getTime()
+        onMutate() {
+            return { start: new Date() }
         },
-        onSettled(data, error, variables, context) {
-            variables.duration = new Date().getTime() - (variables.duration ?? 0)
+        onSettled: (_response, _error, _request, context) => {
+            if (context === undefined) return
+            context.duration = new Date().getTime() - context.start.getTime()
         },
     })
 }
