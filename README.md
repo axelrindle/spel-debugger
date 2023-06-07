@@ -1,3 +1,5 @@
+![logo](./frontend/public/icon-192.png)
+
 [![CI](https://github.com/axelrindle/spel-debugger/actions/workflows/ci.yml/badge.svg)](https://github.com/axelrindle/spel-debugger/actions/workflows/ci.yml)
 
 # Debugger for SpEL
@@ -15,6 +17,17 @@ docker run -d \
   -p 8080:8080 \
   ghcr.io/axelrindle/spel-debugger:latest
 ```
+
+## Security Considerations
+
+The application does not provide any authentication mechanisms. As the SpEL is quite powerful and will execute
+arbitrary Java code, harm could be done by unauthorized users. Consider installing an authentication
+middleware such as HTTP Basic.
+
+Read more on this topic here:
+
+- https://0xn3va.gitbook.io/cheat-sheets/framework/spring/spel-injection#spel-injection
+- https://xvnpw.medium.com/hacking-spel-part-1-d2ff2825f62a
 
 ## Development
 
