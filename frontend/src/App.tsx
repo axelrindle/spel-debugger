@@ -62,6 +62,7 @@ export default function App() {
                         <span>Context Variables</span>
                         <button
                           type="button"
+                          tabIndex={-1}
                           className="text-green-600 ml-2"
                           title="Add new variable"
                           onClick={() => push({ id: nanoid(), key: '', value: '' } as ContextVariable) }
