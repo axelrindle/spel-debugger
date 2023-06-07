@@ -137,15 +137,19 @@ export default function App() {
 
               <div className="flex justify-center mt-8">
                 <button
-                  className="group relative inline-block overflow-hidden border border-green-600 px-16 py-3 focus:outline-none focus:ring"
+                  className="
+                    relative inline-block
+                    focus:outline-none focus:ring focus:ring-green-500
+                  "
                   type="submit"
                 >
                   <span
-                    className="absolute inset-y-0 left-0 w-[2px] bg-green-600 transition-all group-hover:w-full group-active:bg-green-500"
-                  ></span>
-
-                  <span
-                    className="relative text-sm font-medium text-green-600 transition-colors group-hover:text-white"
+                    className="
+                      relative inline-block px-8 py-4
+                      text-sm font-bold uppercase tracking-widest
+                      bg-green-300 border-2 border-current
+                      transition-colors hover:bg-green-400
+                    "
                   >
                     Submit
                   </span>
