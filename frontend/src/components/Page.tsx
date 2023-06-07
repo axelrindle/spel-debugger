@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import Spel from './Spel'
+import Container from './Container'
 
 interface ShellProps {
     children: ReactNode
@@ -7,10 +8,10 @@ interface ShellProps {
 
 function Shell(props: ShellProps) {
     return (
-        <div className="bg-gray-100 py-8">
-            <div className="max-w-screen-xl mx-auto">
+        <div className="bg-gray-100 px-4 py-8">
+            <Container>
                 {props.children}
-            </div>
+            </Container>
         </div>
     )
 }
