@@ -8,6 +8,10 @@
 This application is a debugger for the
 [Spring Expression Language (SpEL)](https://docs.spring.io/spring-framework/reference/core/expressions.html).
 
+## Showcase
+
+![screenshot](./screenshot.png)
+
 ## Installation
 
 It's easiest to install the application using Docker:
