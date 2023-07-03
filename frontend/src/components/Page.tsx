@@ -4,6 +4,7 @@ import { SiGithub, SiSpring } from '@icons-pack/react-simple-icons'
 import { ReactNode } from 'react'
 import Spel from './Spel'
 import Container from './Container'
+import useAppVersion from '../api/useAppVersion'
 
 interface ShellProps {
     children: ReactNode
@@ -30,13 +31,15 @@ export function Header() {
 }
 
 export function Footer() {
+    const appVersion = useAppVersion()
+
     return (
         <Shell>
             <div className="flex flex-row items-center gap-8 py-12 text-gray-500">
                 <img src="/icon-192.png" className="w-16" />
                 <div>
                     <p className="font-medium text-md">
-                        Debugger for Spring Expression Language (<Spel />)
+                        Debugger for Spring Expression Language (<Spel />) [v{appVersion.data}]
                     </p>
                     <p className="text-sm">
                         Made with <FontAwesomeIcon icon={faHeart} className="text-red-500" /> by <a className="underline" href="https://github.com/axelrindle">Axel Rindle</a>

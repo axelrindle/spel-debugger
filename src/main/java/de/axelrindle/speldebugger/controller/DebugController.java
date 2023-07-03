@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.info.BuildProperties;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.StandardEnvironment;
@@ -28,9 +29,18 @@ public class DebugController {
     @Autowired
     private StandardServletEnvironment environment;
 
+    @Autowired
+    private BuildProperties buildProperties;
+
     @GetMapping("/")
     public String index() {
         return "index.html";
+    }
+
+    @GetMapping("/version")
+    @ResponseBody
+    public String version() {
+        return buildProperties.getVersion();
     }
 
     @PostMapping("/spel")

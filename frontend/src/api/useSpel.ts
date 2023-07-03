@@ -1,17 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { SpelRequest, SpelResponse } from '../types';
+import getUrl from './url';
 
 interface Context {
     start: Date
     duration?: number
-}
-
-function getUrl(): string|URL {
-    if (import.meta.env.PROD) {
-        return '/spel';
-    }
-
-    return new URL('/spel', import.meta.env.VITE_API_URL)
 }
 
 export default function useSpel() {
@@ -21,7 +14,7 @@ export default function useSpel() {
                 ...data,
                 context: data.context.reduce((last, current) => ({ ...last, [current.key]: current.value}), {})
             }
-            const response = await fetch(getUrl(), {
+            const response = await fetch(getUrl('spel'), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
