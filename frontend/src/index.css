@@ -14,3 +14,9 @@ body,
     display: flex;
     flex-flow: column nowrap;
 }
+
+@layer components {
+    a {
+        @apply transition-colors hover:text-gray-700;
+    }
+}
