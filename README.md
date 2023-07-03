@@ -1,6 +1,7 @@
 ![logo](./frontend/public/icon-192.png)
 
 [![CI](https://github.com/axelrindle/spel-debugger/actions/workflows/ci.yml/badge.svg)](https://github.com/axelrindle/spel-debugger/actions/workflows/ci.yml)
+[![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/axelrindle/spel-debugger?label=version)](https://github.com/axelrindle/spel-debugger/pkgs/container/spel-debugger)
 
 # Debugger for SpEL
 
@@ -57,3 +58,6 @@ Read more on this topic here:
 ## Attribution
 
 Spring is a [registered trademark](https://spring.io/trademarks) of Pivotal Software, Inc.
+
+[Icon](https://icon.kitchen/i/H4sIAAAAAAAAAz1QMW7DMAz8C7t6SOA6BbwG7dShaLIVHWiJtoXSpitLSQPDfy%2Bl1tl4h%2BPxjgtckCPNUC9g0X%2BdexoI6uAjFdB259ukCAy7CX2AApruKCxeuYdDheXOKqcy%2BglKnabn14zf0Fo3dsk0yAT1fleAd12vojQ2EoIMfzNTm9k17b3IqGCBFgfHN3V8F9VKuitst1guIDsDdYs8U967Z8KSDmWVMxz%2FM6vdTCmdpRYjpxLOyKjEbByNhkAtmu7UY646f0fnDVPumnpFr7T22Ea44kX%2FVYDZjpZPj%2FtqD6v6DGIjp29%2BwJUa%2BFx%2FAf%2FBQ9pgAQAA)
+created using [IconKitchen](https://icon.kitchen/).
