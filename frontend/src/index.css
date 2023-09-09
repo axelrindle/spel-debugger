@@ -19,4 +19,8 @@ body,
     a {
         @apply transition-colors hover:text-gray-700;
     }
+
+    p {
+        @apply dark:text-gray-200;
+    }
 }

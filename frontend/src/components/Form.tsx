@@ -15,7 +15,7 @@ export function MyLabel(props: Props) {
     return (
         <label
             htmlFor={props.name}
-            className="block font-medium text-gray-700"
+            className="block font-medium text-gray-700 dark:text-gray-200"
         >
             {props.label}
         </label>
@@ -35,7 +35,7 @@ export function MyFieldOnly(props: Props) {
     return (
         <Field
             {...props}
-            className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
+            className="mt-1 w-full rounded-md border-gray-200 shadow-sm sm:text-sm dark:bg-gray-700 dark:text-gray-200"
         />
     )
 }

@@ -30,7 +30,7 @@ export default function App() {
   return (<>
     <Header />
 
-    <div className="flex-1 px-4 py-8">
+    <div className="flex-1 px-4 py-8 bg-white dark:bg-gray-900">
       <Container>
         <div className="prose max-w-none">
           <p>
