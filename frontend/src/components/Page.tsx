@@ -1,6 +1,6 @@
 import { faHeart, faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { SiGithub, SiSpring } from '@icons-pack/react-simple-icons'
+import { SiGithub, SiSpring, SiSwagger } from '@icons-pack/react-simple-icons'
 import { ReactNode } from 'react'
 import Spel from './Spel'
 import Container from './Container'
@@ -64,6 +64,13 @@ export function Footer() {
                     rel="noreferrer"
                 >
                     <SiSpring size={30} title="SpEL Reference Documentation" />
+                </a>
+                <a
+                    href={`${import.meta.env.VITE_API_URL}/swagger-ui.html`}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <SiSwagger size={30} title="Swagger UI" />
                 </a>
                 <span
                     className="cursor-pointer w-[34px] text-center"
