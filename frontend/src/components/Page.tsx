@@ -42,7 +42,7 @@ export function Footer() {
                 <img src="/icon-192.png" className="w-16" />
                 <div>
                     <p className="font-medium text-md">
-                        Debugger for Spring Expression Language (<Spel />) [v{appVersion.data}]
+                        Debugger for Spring Expression Language (<Spel />) [v{appVersion.data?.build.version}]
                     </p>
                     <p className="text-sm">
                         Made with <FontAwesomeIcon icon={faHeart} className="text-red-500" /> by <a className="underline" href="https://github.com/axelrindle">Axel Rindle</a>

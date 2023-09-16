@@ -2,25 +2,24 @@ package de.axelrindle.speldebugger.controller;
 
 import de.axelrindle.speldebugger.model.SpelRequest;
 import de.axelrindle.speldebugger.model.SpelResponse;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.info.BuildProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.support.StandardServletEnvironment;
 
 import java.lang.reflect.Constructor;
 import java.util.Map;
 
 @Controller
-@CrossOrigin(origins = "*")
 @Slf4j
 public class DebugController {
 
@@ -29,36 +28,17 @@ public class DebugController {
     @Autowired
     private StandardServletEnvironment environment;
 
-    @Autowired
-    private BuildProperties buildProperties;
-
-    @GetMapping("/")
-    public String index() {
-        return "index.html";
-    }
-
-    @GetMapping("/version")
-    @ResponseBody
-    public String version() {
-        return buildProperties.getVersion();
-    }
-
+    /**
+     * Processes a SpEL expression mimicking the behavior of the {@link Value} annotation.
+     *
+     * @param form The {@link SpelRequest} to process.
+     * @return A {@link SpelResponse} indicating the processing result.
+     * @see org.springframework.expression.common.TemplateParserContext
+     */
     @PostMapping("/spel")
-    @ResponseBody
-    @io.swagger.v3.oas.annotations.parameters.RequestBody(
-            content = @Content(examples = @ExampleObject("""
-            {
-            	"spel": "#{T(java.time.LocalDate).parse('${property.name}')}",
-            	"context": {
-            		"property.name": "2023-05-06"
-            	}
-            }
-            """))
-    )
     public ResponseEntity<SpelResponse> processSpelRequest(@RequestBody SpelRequest form) {
         try {
             StandardEnvironment environment = makeEnvironment(form.context());
-
             String spel = environment.resolveRequiredPlaceholders(form.spel());
             if (spel.startsWith("#{")) {
                 // the #{} syntax is used by the @Value annotation to indicate
@@ -76,10 +56,7 @@ public class DebugController {
             return ResponseEntity.ok(new SpelResponse(result.toString(), result.getClass().getName(), null));
         } catch (Exception e) {
             var message = e.getClass().getName() + ": " + e.getMessage();
-            log.debug("SpEL parsing error: {}", message);
-            if (log.isDebugEnabled()) {
-                e.printStackTrace();
-            }
+            log.debug("SpEL parsing error: %s".formatted(message), e);
             return ResponseEntity.badRequest().body(new SpelResponse(null, null, message));
         }
     }
@@ -93,6 +70,7 @@ public class DebugController {
      * @throws ReflectiveOperationException A required constructor is not publicly accessible. Thrown in case
      *                                      the constructor invocation failed.
      */
+    @NotNull
     private StandardEnvironment makeEnvironment(Map<String, Object> context) throws ReflectiveOperationException {
         Constructor<StandardEnvironment> constructor = StandardEnvironment.class.getDeclaredConstructor(MutablePropertySources.class);
         constructor.setAccessible(true);
