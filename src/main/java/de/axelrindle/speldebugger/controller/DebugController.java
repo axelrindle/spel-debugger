@@ -23,7 +23,7 @@ import java.util.Map;
 
 @Controller
 @Slf4j
-public class DebugController {
+public class DebugController implements OpenApiSpec.DebugController {
 
     private final SpelExpressionParser parser = new SpelExpressionParser();
     private final ParserContext context = new TemplateParserContext();
