@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.StandardEnvironment;
+import org.springframework.expression.ParserContext;
+import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,7 @@ import java.util.Map;
 public class DebugController {
 
     private final SpelExpressionParser parser = new SpelExpressionParser();
+    private final ParserContext context = new TemplateParserContext();
 
     @Autowired
     private StandardServletEnvironment environment;
@@ -40,15 +43,10 @@ public class DebugController {
         try {
             StandardEnvironment environment = makeEnvironment(form.context());
             String spel = environment.resolveRequiredPlaceholders(form.spel());
-            if (spel.startsWith("#{")) {
-                // the #{} syntax is used by the @Value annotation to indicate
-                // an incoming SpEL expression
-                spel = spel.substring(2, spel.length() - 1);
-            }
 
             log.debug("Processing SpEL expression: {}", spel);
 
-            var result = parser.parseExpression(spel).getValue();
+            var result = parser.parseExpression(spel, context).getValue();
             if (result == null) {
                 return ResponseEntity.ok(new SpelResponse("null", "null", null));
             }
