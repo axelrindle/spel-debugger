@@ -33,16 +33,16 @@ export default function Result({ mutation }: Props) {
                 </div>
             }
         >
-            <pre id="result" className="mt-1">
+            <pre id="result" className="mt-1 select-text">
                 <code>
                     <ResultText mutation={mutation} />
                 </code>
             </pre>
             <p>
-                Type: <u>{mutation.data?.type}</u>
+                Type: <u className="select-text">{mutation.data?.type}</u>
             </p>
             <p>
-                Duration: <u>{mutation.context?.duration} ms</u>
+                Duration: <u className="select-text">{mutation.context?.duration} ms</u>
             </p>
         </FieldShell>
     )
