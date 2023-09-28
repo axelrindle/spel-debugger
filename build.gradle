@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
     id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
 }
@@ -19,6 +20,8 @@ repositories {
 }
 
 dependencies {
+    def versionTestContainers = '1.19.0'
+
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -32,10 +35,22 @@ dependencies {
     compileOnly 'org.jetbrains:annotations:24.0.1'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:testcontainers:$versionTestContainers"
+    testImplementation "org.testcontainers:junit-jupiter:$versionTestContainers"
+    testImplementation "org.testcontainers:mongodb:$versionTestContainers"
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required = true
+    }
 }
 
 springBoot {
